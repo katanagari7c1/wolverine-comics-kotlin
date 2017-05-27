@@ -19,7 +19,7 @@ class ComicListAdapter(val comics:List<Comic>, val activity: Activity): Recycler
 
 	override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ComicViewHolder {
 		val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_comic, parent, false)
-		return ComicViewHolder(view, ComicItemClickListener(activity))
+		return ComicViewHolder(view, ComicListItemClickListener(activity))
 	}
 
 }
