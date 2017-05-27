@@ -5,9 +5,10 @@ import android.view.View
 import dev.katanagari7c1.wolverine.domain.entity.Comic
 import kotlinx.android.synthetic.main.item_comic.view.*
 
-class ComicViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+class ComicViewHolder(val view: View, val listener:View.OnClickListener): RecyclerView.ViewHolder(view) {
 
 	fun bindComic(comic:Comic) {
 		view.item_comic_title.text = comic.title
+		view.setOnClickListener(listener)
 	}
 }
