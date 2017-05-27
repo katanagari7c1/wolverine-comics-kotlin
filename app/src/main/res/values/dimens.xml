@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="lateral_margin">16dp</dimen>
+    <dimen name="top_margin">25dp</dimen>
+    <dimen name="list_cell_height">60dp</dimen>
+</resources>
