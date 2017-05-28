@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import dev.katanagari7c1.wolverine.R
 import dev.katanagari7c1.wolverine.domain.entity.Comic
 
-class ComicListAdapter(val comics:List<Comic>, val activity: Activity): RecyclerView.Adapter<ComicViewHolder>() {
+class ComicListAdapter(var comics:List<Comic>, val activity: Activity): RecyclerView.Adapter<ComicViewHolder>() {
 
 	override fun getItemCount(): Int {
 		return this.comics.size

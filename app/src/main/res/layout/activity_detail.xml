@@ -19,7 +19,6 @@
 		android:layout_marginEnd="@dimen/lateral_margin"
 		android:layout_marginStart="@dimen/lateral_margin"
 		android:layout_marginTop="@dimen/top_margin"
-		android:text="dasdfvarfbaerb sdvcasd"
 		/>
 
 </LinearLayout>
