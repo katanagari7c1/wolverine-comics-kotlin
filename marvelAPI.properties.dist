@@ -1,0 +1,3 @@
+MARVEL_API_SERVER = "http://gateway.marvel.com/"
+MARVEL_API_PUBLIC_KEY = "<your public key goes here>"
+MARVEL_API_PRIVATE_KEY = "<your private key goes here>"

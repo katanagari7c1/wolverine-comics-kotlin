@@ -24,6 +24,14 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
     }
 
+    def marvelApiPropertiesFile = rootProject.file("marvelAPI.properties")
+    def marvelApiProperties = new Properties()
+    marvelApiProperties.load(new FileInputStream(marvelApiPropertiesFile))
+    buildTypes.each {
+        it.buildConfigField 'String', 'MARVEL_API_SERVER', marvelApiProperties['MARVEL_API_SERVER']
+        it.buildConfigField 'String', 'MARVEL_API_PUBLIC_KEY', marvelApiProperties['MARVEL_API_PUBLIC_KEY']
+        it.buildConfigField 'String', 'MARVEL_API_PRIVATE_KEY', marvelApiProperties['MARVEL_API_PRIVATE_KEY']
+    }
 }
 
 dependencies {
