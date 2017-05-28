@@ -12,5 +12,6 @@
 	<string name="page_count_subtitle">Pages:</string>
 	<string name="creators_subtitle">Creators:</string>
 	<string name="page_number_template">%s pages</string>
-
+	<string name="error_cannot_fetch">Hmm, something went wrong while attempting to retrieve data. Please check your connectivity and try again</string>
+	<string name="reload_comics_title">Reload comics</string>
 </resources>

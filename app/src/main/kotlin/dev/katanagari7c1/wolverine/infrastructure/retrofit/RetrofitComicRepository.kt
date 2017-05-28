@@ -1,6 +1,7 @@
 package dev.katanagari7c1.wolverine.infrastructure.retrofit
 
 import dev.katanagari7c1.wolverine.domain.entity.Comic
+import dev.katanagari7c1.wolverine.domain.error.FetchError
 import dev.katanagari7c1.wolverine.domain.repository.ComicRepository
 
 class RetrofitComicRepository(
@@ -47,14 +48,26 @@ class RetrofitComicRepository(
 	private fun requestComics(parameters:MutableMap<String,String>):List<Comic> {
 		parameters.put("orderBy", "-focDate")
 
-		val apiResponse = this.comicApi.findAllComics(parameters).execute()
-		val response = apiResponse.body()
+		try {
+			val apiResponse = this.comicApi.findAllComics(parameters).execute()
 
-		if (response != null) {
-			return response.data.results.map { data -> data.toComic() }
+			if (apiResponse.code() == 200) {
+				val response = apiResponse.body()
+
+				if (response != null) {
+					return response.data.results.map { data -> data.toComic() }
+				}
+				else {
+					return listOf()
+				}
+			}
+			else {
+				throw FetchError("Retrofit request failed with code ${apiResponse.code()}")
+			}
 		}
-		else {
-			return listOf()
+		catch (exception:Exception) {
+			throw FetchError("A connection error ocurred")
 		}
+
 	}
 }
