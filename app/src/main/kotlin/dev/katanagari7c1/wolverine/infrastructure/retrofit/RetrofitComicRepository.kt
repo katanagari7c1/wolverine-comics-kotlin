@@ -44,7 +44,9 @@ class RetrofitComicRepository(
 		return this.requestComics(parameters)
 	}
 
-	private fun requestComics(parameters:Map<String,String>):List<Comic> {
+	private fun requestComics(parameters:MutableMap<String,String>):List<Comic> {
+		parameters.put("orderBy", "-focDate")
+
 		val apiResponse = this.comicApi.findAllComics(parameters).execute()
 		val response = apiResponse.body()
 
