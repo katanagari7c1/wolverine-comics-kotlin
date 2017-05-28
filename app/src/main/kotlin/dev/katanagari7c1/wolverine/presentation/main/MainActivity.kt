@@ -7,8 +7,9 @@ import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import dev.katanagari7c1.wolverine.R
-import dev.katanagari7c1.wolverine.domain.use_case.ComicFindContainingTextInTitleAndOffsetUseCase
+import dev.katanagari7c1.wolverine.domain.error.FetchError
 import dev.katanagari7c1.wolverine.domain.use_case.ComicFindAllFromOffsetUseCase
 import dev.katanagari7c1.wolverine.infrastructure.glide.GlideImageLoader
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitAuthenticationParametersFactory
@@ -56,17 +57,24 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-		if (item != null && item.itemId == R.id.search) {
-			onSearchRequested()
-			return true
+		if (item != null) {
+			if(item.itemId == R.id.search) {
+				this.onSearchRequested()
+				return true
+			}
+			else if (item.itemId == R.id.reload) {
+				this.fetchComics()
+				return true
+			}
 		}
+
 		return super.onOptionsItemSelected(item)
 	}
 
 	private fun configureSearchView(menu: Menu) {
 		val searchItem = menu.findItem(R.id.search)
 		val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
-		searchView.setQueryHint(getString(R.string.search_by_title));
+		searchView.queryHint = getString(R.string.search_by_title)
 
 		searchView.setOnQueryTextListener(ComicSearchQueryListener(this, searchView))
 	}
@@ -90,17 +98,31 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 			this.showLoading(R.string.loading_comics)
 
 			doAsync {
-				val comics = dataLoader.load()
 
-				uiThread {
-					adapter.appendComics(comics)
-
-					hideLoading()
-					isRequestingComics = false
+				try {
+					val comics = dataLoader.load()
+					uiThread {
+						adapter.appendComics(comics)
+						finishRequest()
+					}
 				}
-
+				catch (error: FetchError) {
+					uiThread {
+						finishRequest()
+						handleFetchError(error)
+					}
+				}
 			}
 		}
+	}
+
+	private fun finishRequest() {
+		this.hideLoading()
+		this.isRequestingComics = false
+	}
+
+	private fun handleFetchError(error: FetchError) {
+		Toast.makeText(this, R.string.error_cannot_fetch, Toast.LENGTH_LONG).show()
 	}
 
 	override fun shouldLoadMoreItems() {
