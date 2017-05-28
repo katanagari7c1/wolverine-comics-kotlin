@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import dev.katanagari7c1.wolverine.R
 import dev.katanagari7c1.wolverine.domain.entity.Comic
+import dev.katanagari7c1.wolverine.domain.util.ImageLoader
 
-class ComicListAdapter(val activity: Activity): RecyclerView.Adapter<ComicViewHolder>() {
+class ComicListAdapter(val activity: Activity, val imageLoader:ImageLoader): RecyclerView.Adapter<ComicViewHolder>() {
 
 	var comics:MutableList<Comic> = mutableListOf()
 
@@ -26,7 +27,7 @@ class ComicListAdapter(val activity: Activity): RecyclerView.Adapter<ComicViewHo
 
 	override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ComicViewHolder {
 		val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_comic, parent, false)
-		return ComicViewHolder(view, ComicListItemClickListener(activity))
+		return ComicViewHolder(view, imageLoader, ComicListItemClickListener(activity))
 	}
 
 }

@@ -10,6 +10,7 @@ import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitAuthenticatio
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitComicRepository
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitFactory
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.util.AuthorizationKeyGenerator
+import dev.katanagari7c1.wolverine.infrastructure.retrofit.util.GlideImageLoader
 import dev.katanagari7c1.wolverine.presentation.base.DialogActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
@@ -69,7 +70,10 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 	}
 
 	private fun initializeList(dataLoader: ComicListDataLoader) {
-		this.adapter = ComicListAdapter(this)
+		this.adapter = ComicListAdapter(
+			activity = this,
+			imageLoader = GlideImageLoader(this)
+		)
 		val layoutManager = GridLayoutManager(this, 2)
 		this.main_comic_recycler_view.setHasFixedSize(true)
 		this.main_comic_recycler_view.layoutManager = layoutManager
