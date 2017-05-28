@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/list_cell_height"
-              android:paddingStart="@dimen/lateral_margin"
-              android:paddingEnd="@dimen/lateral_margin"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="@dimen/list_card_width"
+    android:layout_height="@dimen/list_card_height"
+    android:layout_margin="@dimen/card_margin"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardUseCompatPadding="true"
 >
+
+    <ImageView
+        android:id="@+id/item_comic_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_light"
+        android:scaleType="centerCrop"/>
     <TextView
         android:id="@+id/item_comic_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-    />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#AAA"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:background="@color/white"
+        android:lines="3"
+        android:padding="@dimen/card_text_padding"
+        style="@style/CardText"
     />
 
-</RelativeLayout>
+</android.support.v7.widget.CardView>
