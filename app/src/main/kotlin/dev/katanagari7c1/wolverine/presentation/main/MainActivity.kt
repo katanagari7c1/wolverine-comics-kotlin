@@ -10,13 +10,13 @@ import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitAuthenticatio
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitComicRepository
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitFactory
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.util.AuthorizationKeyGenerator
-import dev.katanagari7c1.wolverine.presentation.base.ToolbarActivity
+import dev.katanagari7c1.wolverine.presentation.base.DialogActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
 
-class MainActivity : ToolbarActivity() {
+class MainActivity : DialogActivity() {
 
 	private var adapter:ComicListAdapter? = null
 
@@ -31,6 +31,8 @@ class MainActivity : ToolbarActivity() {
 	}
 
 	private fun fetchComics() {
+		this.showLoading(R.string.loading_comics)
+
 		val comicFindAllUseCase = ComicFindAllUseCase(
 			RetrofitComicRepository(
 				retrofitFactory = RetrofitFactory(),
@@ -44,6 +46,8 @@ class MainActivity : ToolbarActivity() {
 			uiThread {
 				adapter?.comics = comics
 				adapter?.notifyDataSetChanged()
+
+				hideLoading()
 			}
 		}
 	}
