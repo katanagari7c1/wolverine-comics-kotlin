@@ -2,15 +2,15 @@ package dev.katanagari7c1.wolverine
 
 import com.nhaarman.mockito_kotlin.*
 import dev.katanagari7c1.wolverine.domain.entity.Comic
-import dev.katanagari7c1.wolverine.domain.use_case.ComicFindFromOffsetUseCase
-import dev.katanagari7c1.wolverine.presentation.main.ComicListDataLoader
+import dev.katanagari7c1.wolverine.domain.use_case.ComicFindAllFromOffsetUseCase
+import dev.katanagari7c1.wolverine.presentation.main.data_loader.ComicListDataLoader
 import org.junit.Before
 import org.junit.Test
 
 class ComicListDataLoaderTest {
 
-	private lateinit var loadWithOffsetUseCase:ComicFindFromOffsetUseCase
-	private lateinit var dataLoader:ComicListDataLoader
+	private lateinit var loadWithOffsetUseCase: ComicFindAllFromOffsetUseCase
+	private lateinit var dataLoader: ComicListDataLoader
 
 	private val comicsFirstPage = listOf(
 		Comic(comicId = "1"),
@@ -29,6 +29,7 @@ class ComicListDataLoaderTest {
 	@Before
 	fun setup() {
 		this.loadWithOffsetUseCase = mock()
+
 		whenever(loadWithOffsetUseCase.execute(any(), any()))
 			.thenReturn(comicsFirstPage, comicsSecondPage, listOf())
 
@@ -59,5 +60,6 @@ class ComicListDataLoaderTest {
 
 		verify(loadWithOffsetUseCase, times(3)).execute(any(), any())
 	}
+
 
 }

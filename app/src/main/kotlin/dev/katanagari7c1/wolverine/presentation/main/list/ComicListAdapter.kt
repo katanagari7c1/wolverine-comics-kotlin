@@ -1,18 +1,27 @@
-package dev.katanagari7c1.wolverine.presentation.main
+package dev.katanagari7c1.wolverine.presentation.main.list
 
 import android.app.Activity
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import dev.katanagari7c1.wolverine.R
 import dev.katanagari7c1.wolverine.domain.entity.Comic
 import dev.katanagari7c1.wolverine.domain.util.ImageLoader
+import dev.katanagari7c1.wolverine.presentation.main.list.holder.ComicViewHolder
+import dev.katanagari7c1.wolverine.presentation.main.listener.ComicListItemClickListener
 
-class ComicListAdapter(val activity: Activity, val imageLoader:ImageLoader): RecyclerView.Adapter<ComicViewHolder>() {
+class ComicListAdapter(val activity: Activity, val imageLoader: ImageLoader): RecyclerView.Adapter<ComicViewHolder>() {
 
 	var comics:MutableList<Comic> = mutableListOf()
 
-	fun appendComics(newComics:List<Comic>) {
+	fun appendComics(newComics: List<Comic>) {
+		this.comics.addAll(newComics)
+		this.notifyDataSetChanged()
+	}
+
+	fun replaceComics(newComics: List<Comic>) {
+		this.comics.clear()
 		this.comics.addAll(newComics)
 		this.notifyDataSetChanged()
 	}
