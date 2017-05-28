@@ -134,7 +134,9 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 			activity = this,
 			imageLoader = GlideImageLoader(this)
 		)
-		val layoutManager = GridLayoutManager(this, 2)
+
+		val itemsPerRow = resources.getInteger(R.integer.items_per_row)
+		val layoutManager = GridLayoutManager(this, itemsPerRow)
 		this.main_comic_recycler_view.setHasFixedSize(true)
 		this.main_comic_recycler_view.layoutManager = layoutManager
 		this.main_comic_recycler_view.adapter = this.adapter
