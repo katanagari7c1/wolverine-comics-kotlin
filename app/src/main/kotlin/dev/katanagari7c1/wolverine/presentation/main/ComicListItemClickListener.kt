@@ -16,6 +16,7 @@ class ComicListItemClickListener(val activity: Activity): OnClickListener {
 		val comic = this.destinationComic ?: return
 
 		activity.startActivity<DetailActivity>(
+			DetailActivity.EXTRA_COMIC_ID to comic.comicId,
 			DetailActivity.EXTRA_TITLE to comic.title
 		)
 	}
