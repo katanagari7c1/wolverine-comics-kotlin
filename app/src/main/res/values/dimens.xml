@@ -2,5 +2,13 @@
 <resources>
     <dimen name="lateral_margin">16dp</dimen>
     <dimen name="top_margin">25dp</dimen>
-    <dimen name="list_cell_height">60dp</dimen>
+    <dimen name="list_card_width">175dp</dimen>
+    <dimen name="list_card_height">282dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_margin">4dp</dimen>
+    <dimen name="card_text_padding">4dp</dimen>
+    <dimen name="text_size_huge">32sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
 </resources>

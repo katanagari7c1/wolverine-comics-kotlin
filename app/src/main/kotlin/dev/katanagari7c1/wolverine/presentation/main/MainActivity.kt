@@ -1,6 +1,7 @@
 package dev.katanagari7c1.wolverine.presentation.main
 
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import dev.katanagari7c1.wolverine.R
@@ -69,7 +70,7 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 
 	private fun initializeList(dataLoader: ComicListDataLoader) {
 		this.adapter = ComicListAdapter(this)
-		val layoutManager = LinearLayoutManager(this)
+		val layoutManager = GridLayoutManager(this, 2)
 		this.main_comic_recycler_view.setHasFixedSize(true)
 		this.main_comic_recycler_view.layoutManager = layoutManager
 		this.main_comic_recycler_view.adapter = this.adapter
