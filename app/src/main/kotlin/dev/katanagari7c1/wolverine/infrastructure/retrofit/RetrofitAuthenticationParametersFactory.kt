@@ -7,7 +7,7 @@ import java.util.*
 
 class RetrofitAuthenticationParametersFactory(val authorizationKeyGenerator: AuthorizationKeyGenerator) {
 
-	fun getParameters(): Map<String, String> {
+	fun getParameters(): MutableMap<String, String> {
 		val timestamp = "${Date().time / 1000}"
 		val hash = this.authorizationKeyGenerator.generate(
 			timestamp,
@@ -15,7 +15,7 @@ class RetrofitAuthenticationParametersFactory(val authorizationKeyGenerator: Aut
 			BuildConfig.MARVEL_API_PRIVATE_KEY
 		)
 
-		return mapOf(
+		return mutableMapOf(
 			"ts" to timestamp,
 			"apikey" to BuildConfig.MARVEL_API_PUBLIC_KEY,
 			"hash" to hash

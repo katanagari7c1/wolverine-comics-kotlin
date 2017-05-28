@@ -7,7 +7,7 @@ import kotlin.test.assertEquals
 
 class AuthorizationKeyGeneratorTest {
 
-	var keyGenerator: AuthorizationKeyGenerator? = null
+	private lateinit var keyGenerator: AuthorizationKeyGenerator
 
 	@Before
 	fun setup() {
@@ -21,6 +21,6 @@ class AuthorizationKeyGeneratorTest {
 		val privateKey = "fbe1e5293803fefce1189a1a0d5ac848"
 		val expectedAuthorizationKey = "f09ccc0b552856a7dd91d388eba229ca" // md5(ts+privateKey+publicKey))
 
-		assertEquals(expectedAuthorizationKey, this.keyGenerator?.generate(date, publicKey, privateKey) ?: "")
+		assertEquals(expectedAuthorizationKey, this.keyGenerator.generate(date, publicKey, privateKey) ?: "")
 	}
 }

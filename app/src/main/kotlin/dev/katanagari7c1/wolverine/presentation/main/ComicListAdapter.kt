@@ -7,7 +7,14 @@ import android.view.ViewGroup
 import dev.katanagari7c1.wolverine.R
 import dev.katanagari7c1.wolverine.domain.entity.Comic
 
-class ComicListAdapter(var comics:List<Comic>, val activity: Activity): RecyclerView.Adapter<ComicViewHolder>() {
+class ComicListAdapter(val activity: Activity): RecyclerView.Adapter<ComicViewHolder>() {
+
+	var comics:MutableList<Comic> = mutableListOf()
+
+	fun appendComics(newComics:List<Comic>) {
+		this.comics.addAll(newComics)
+		this.notifyDataSetChanged()
+	}
 
 	override fun getItemCount(): Int {
 		return this.comics.size

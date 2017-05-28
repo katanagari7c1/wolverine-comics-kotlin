@@ -33,4 +33,20 @@ class RetrofitComicRepository(
 
 		return null
 	}
+
+	override fun findFromOffsetAndLimit(offset: Int, limit: Int): List<Comic> {
+		val parameters = this.parametersFactory.getParameters()
+		parameters.put("offset", "$offset")
+		parameters.put("limit", "$limit")
+
+		val apiResponse = this.comicApi.findAllComics(parameters).execute()
+		val response = apiResponse.body()
+
+		if (response != null) {
+			return response.data.results.map { data -> data.toComic() }
+		}
+		else {
+			return listOf()
+		}
+	}
 }
