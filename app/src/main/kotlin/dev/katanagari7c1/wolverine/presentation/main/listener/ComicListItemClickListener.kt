@@ -1,4 +1,4 @@
-package dev.katanagari7c1.wolverine.presentation.main
+package dev.katanagari7c1.wolverine.presentation.main.listener
 
 import android.app.Activity
 import android.view.View
@@ -10,7 +10,7 @@ import org.jetbrains.anko.startActivity
 
 class ComicListItemClickListener(val activity: Activity): OnClickListener {
 
-	var destinationComic:Comic? = null
+	var destinationComic: Comic? = null
 
 	override fun onClick(v: View?) {
 		val comic = this.destinationComic ?: return

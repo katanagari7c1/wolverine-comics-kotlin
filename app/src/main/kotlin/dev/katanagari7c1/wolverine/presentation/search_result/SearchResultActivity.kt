@@ -1,15 +1,13 @@
-package dev.katanagari7c1.wolverine.presentation.main
+package dev.katanagari7c1.wolverine.presentation.search_result
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import dev.katanagari7c1.wolverine.R
 import dev.katanagari7c1.wolverine.domain.use_case.ComicFindContainingTextInTitleAndOffsetUseCase
-import dev.katanagari7c1.wolverine.domain.use_case.ComicFindAllFromOffsetUseCase
 import dev.katanagari7c1.wolverine.infrastructure.glide.GlideImageLoader
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitAuthenticationParametersFactory
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitComicRepository
@@ -20,58 +18,51 @@ import dev.katanagari7c1.wolverine.presentation.main.data_loader.ComicListDataLo
 import dev.katanagari7c1.wolverine.presentation.main.data_loader.LoadMoreItemsCallback
 import dev.katanagari7c1.wolverine.presentation.main.list.ComicListAdapter
 import dev.katanagari7c1.wolverine.presentation.main.list.ComicListScrollListener
-import dev.katanagari7c1.wolverine.presentation.main.search.ComicSearchQueryListener
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_search_result.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
 
 
-class MainActivity : DialogActivity(), LoadMoreItemsCallback {
+class SearchResultActivity : DialogActivity(), LoadMoreItemsCallback {
+
+	companion object {
+		const val EXTRA_SEARCH_QUERY = "search_query"
+	}
 
 	private lateinit var adapter: ComicListAdapter
 	private lateinit var dataLoader: ComicListDataLoader
 	private var isRequestingComics = false
+	private var firstRequest = true
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
+		setContentView(R.layout.activity_search_result)
 
-		this.initializeToolbar(find<Toolbar>(R.id.main_toolbar)).title(getString(R.string.app_name))
+		val queryString = getQueryFromIntent(this.intent)
 
-		this.dataLoader = this.initializeDataLoader()
+		this.initializeToolbar(find<Toolbar>(R.id.search_toolbar))
+			.withUpNavigation()
+			.title(formatTitle(queryString))
+
+		this.dataLoader = this.initializeDataLoader(queryString)
 		this.initializeList(this.dataLoader)
 		this.fetchComics()
 	}
 
+	private fun formatTitle(queryString: String): String {
+		return String.format(getString(R.string.search_screen_title), queryString)
+	}
 
-	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-		menuInflater.inflate(R.menu.main_menu, menu)
-
-		if(menu != null) {
-			this.configureSearchView(menu)
+	private fun  getQueryFromIntent(intent: Intent?): String {
+		if (intent != null) {
+			return intent.getStringExtra(EXTRA_SEARCH_QUERY)
 		}
 
-		return true
+		return ""
 	}
 
-	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-		if (item != null && item.itemId == R.id.search) {
-			onSearchRequested()
-			return true
-		}
-		return super.onOptionsItemSelected(item)
-	}
-
-	private fun configureSearchView(menu: Menu) {
-		val searchItem = menu.findItem(R.id.search)
-		val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
-		searchView.setQueryHint(getString(R.string.search_by_title));
-
-		searchView.setOnQueryTextListener(ComicSearchQueryListener(this, searchView))
-	}
-
-	private fun initializeDataLoader(): ComicListDataLoader {
+	private fun initializeDataLoader(queryString: String): ComicListDataLoader {
 		val repository = RetrofitComicRepository(
 			retrofitFactory = RetrofitFactory(),
 			parametersFactory = RetrofitAuthenticationParametersFactory(
@@ -80,7 +71,7 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 		)
 
 		return ComicListDataLoader(
-			loadWithOffsetUseCase = ComicFindAllFromOffsetUseCase(repository)
+			loadWithOffsetUseCase = ComicFindContainingTextInTitleAndOffsetUseCase(queryString, repository)
 		)
 	}
 
@@ -96,11 +87,16 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 					adapter.appendComics(comics)
 
 					hideLoading()
+					showNoResultScreen(adapter)
 					isRequestingComics = false
 				}
 
 			}
 		}
+	}
+
+	private fun showNoResultScreen(adapter: ComicListAdapter) {
+		this.search_no_result_view.visibility = if (adapter.comics.isEmpty()) VISIBLE else GONE
 	}
 
 	override fun shouldLoadMoreItems() {
@@ -113,10 +109,10 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 			imageLoader = GlideImageLoader(this)
 		)
 		val layoutManager = GridLayoutManager(this, 2)
-		this.main_comic_recycler_view.setHasFixedSize(true)
-		this.main_comic_recycler_view.layoutManager = layoutManager
-		this.main_comic_recycler_view.adapter = this.adapter
-		this.main_comic_recycler_view.addOnScrollListener(
+		this.search_comic_recycler_view.setHasFixedSize(true)
+		this.search_comic_recycler_view.layoutManager = layoutManager
+		this.search_comic_recycler_view.adapter = this.adapter
+		this.search_comic_recycler_view.addOnScrollListener(
 			ComicListScrollListener(
 				itemsPerRequest = dataLoader.numberOfItemsToLoad,
 				layoutManager = layoutManager,

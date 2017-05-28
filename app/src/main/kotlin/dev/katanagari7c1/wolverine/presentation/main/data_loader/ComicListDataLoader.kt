@@ -1,10 +1,12 @@
-package dev.katanagari7c1.wolverine.presentation.main
+package dev.katanagari7c1.wolverine.presentation.main.data_loader
 
 import dev.katanagari7c1.wolverine.domain.entity.Comic
 import dev.katanagari7c1.wolverine.domain.use_case.ComicFindFromOffsetUseCase
 
 
-class ComicListDataLoader(val loadWithOffsetUseCase: ComicFindFromOffsetUseCase) {
+class ComicListDataLoader(
+	val loadWithOffsetUseCase: ComicFindFromOffsetUseCase
+) {
 
 	val numberOfItemsToLoad = 50
 	private var offset = 0
@@ -20,4 +22,5 @@ class ComicListDataLoader(val loadWithOffsetUseCase: ComicFindFromOffsetUseCase)
 
 		return listOf()
 	}
+
 }

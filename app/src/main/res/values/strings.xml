@@ -2,4 +2,7 @@
 	<string name="app_name">Wolverine</string>
 	<string name="loading_comics">Loading comics…</string>
 	<string name="loading_comic_data">Loading comic data</string>
+	<string name="search_by_title">Search by title</string>
+	<string name="search_screen_title">Searching for \"%s\"</string>
+	<string name="no_results">I haven\'t found any comic!</string>
 </resources>

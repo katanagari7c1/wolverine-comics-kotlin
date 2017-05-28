@@ -12,15 +12,8 @@ class RetrofitComicRepository(
 
 	override fun findAll(): List<Comic> {
 		val parameters = this.parametersFactory.getParameters()
-		val apiResponse = this.comicApi.findAllComics(parameters).execute()
-		val response = apiResponse.body()
 
-		if (response != null) {
-			return response.data.results.map { data -> data.toComic() }
-		}
-		else {
-			return listOf()
-		}
+		return this.requestComics(parameters)
 	}
 
 	override fun findById(comicId: String): Comic? {
@@ -39,6 +32,19 @@ class RetrofitComicRepository(
 		parameters.put("offset", "$offset")
 		parameters.put("limit", "$limit")
 
+		return this.requestComics(parameters)
+	}
+
+	override fun findWithTitleQueryAndOffset(query: String, offset: Int, limit: Int): List<Comic> {
+		val parameters = this.parametersFactory.getParameters()
+		parameters.put("offset", "$offset")
+		parameters.put("limit", "$limit")
+		parameters.put("titleStartsWith", query)
+
+		return this.requestComics(parameters)
+	}
+
+	private fun requestComics(parameters:Map<String,String>):List<Comic> {
 		val apiResponse = this.comicApi.findAllComics(parameters).execute()
 		val response = apiResponse.body()
 
