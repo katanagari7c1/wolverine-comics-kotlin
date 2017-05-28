@@ -1,88 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context="dev.katanagari7c1.wolverine.presentation.detail.DetailActivity">
-
+	android:orientation="vertical"
+	>
 	<include
 		android:id="@+id/detail_toolbar"
 		layout="@layout/toolbar"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toTopOf="parent"/>
-
-	<TextView
-		android:id="@+id/detail_description"
-		style="@style/NormalText"
+	/>
+	<ScrollView
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginEnd="@dimen/lateral_margin"
-		android:layout_marginStart="@dimen/lateral_margin"
-		android:layout_marginTop="0dp"
-		android:lines="6"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/view"/>
+		android:layout_height="match_parent">
+		<android.support.constraint.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:context="dev.katanagari7c1.wolverine.presentation.detail.DetailActivity"
+			tools:layout_editor_absoluteY="0dp"
+			tools:layout_editor_absoluteX="0dp">
 
-	<ImageView
-		android:id="@+id/detail_image"
-		android:layout_width="171dp"
-		android:layout_height="206dp"
-		android:layout_marginEnd="8dp"
-		android:layout_marginStart="@dimen/lateral_margin"
-		android:layout_marginTop="@dimen/top_margin"
-		android:scaleType="centerInside"
-		app:layout_constraintHorizontal_bias="0.565"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toLeftOf="@+id/guideline3"
-		app:layout_constraintTop_toBottomOf="@+id/detail_toolbar"
-		app:srcCompat="@color/primary_light"/>
+			<TextView
+				android:id="@+id/detail_description"
+				style="@style/NormalText"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/lateral_margin"
+				android:layout_marginStart="@dimen/lateral_margin"
+				android:lines="6"
+				android:layout_marginLeft="16dp"
+				app:layout_constraintLeft_toLeftOf="parent"
+				android:layout_marginRight="16dp"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintHorizontal_bias="0.0"
+				android:layout_marginTop="0dp"
+				app:layout_constraintTop_toBottomOf="@+id/view"/>
 
-	<android.support.constraint.Guideline
-		android:id="@+id/guideline3"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_percent="0.5"
-		/>
+			<ImageView
+				android:id="@+id/detail_image"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:layout_marginEnd="8dp"
+				android:layout_marginStart="@dimen/lateral_margin"
+				android:scaleType="center"
+				app:srcCompat="@color/primary_light"
+				android:layout_marginLeft="16dp"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				android:layout_marginTop="16dp"
+				app:layout_constraintRight_toLeftOf="@+id/guideline3"
+				android:layout_marginRight="8dp"
+				app:layout_constraintHorizontal_bias="0.0"
+				app:layout_constraintBottom_toBottomOf="@+id/detail_pages"
+				android:layout_marginBottom="0dp"/>
 
-	<TextView
-		android:id="@+id/detail_title"
-		style="@style/TitleText"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginEnd="@dimen/lateral_margin"
-		android:layout_marginStart="8dp"
-		android:layout_marginTop="@dimen/top_margin"
-		app:layout_constraintHorizontal_bias="0.785"
-		app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/detail_toolbar"/>
+			<android.support.constraint.Guideline
+				android:id="@+id/guideline3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				app:layout_constraintGuide_percent="0.5"
+				tools:layout_editor_absoluteY="0dp"
+				tools:layout_editor_absoluteX="192dp"/>
 
-	<TextView
-		android:id="@+id/detail_description_subtitle"
-		style="@style/SubtitleText"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="@dimen/lateral_margin"
-		android:layout_marginTop="@dimen/top_margin"
-		android:text="@string/description_title"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/detail_image"/>
+			<TextView
+				android:id="@+id/detail_title"
+				style="@style/TitleText"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/lateral_margin"
+				android:layout_marginStart="8dp"
+				app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				android:layout_marginTop="16dp"
+				app:layout_constraintHorizontal_bias="0.0"/>
 
-	<View
-		android:id="@+id/view"
-		android:layout_width="match_parent"
-		android:layout_height="@dimen/separator_thickness"
-		android:layout_marginEnd="@dimen/lateral_margin"
-		android:layout_marginStart="@dimen/lateral_margin"
-		android:layout_marginTop="0dp"
-		android:background="@color/divider"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/detail_description_subtitle"/>
+			<TextView
+				android:id="@+id/detail_description_subtitle"
+				style="@style/SubtitleText"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/lateral_margin"
+				android:text="@string/description_title"
+				android:layout_marginTop="32dp"
+				app:layout_constraintTop_toBottomOf="@+id/detail_image"
+				android:layout_marginLeft="16dp"
+				app:layout_constraintLeft_toLeftOf="parent"/>
 
-</android.support.constraint.ConstraintLayout>
+			<View
+				android:id="@+id/view"
+				android:layout_width="0dp"
+				android:layout_height="1dp"
+				android:layout_marginEnd="@dimen/lateral_margin"
+				android:layout_marginStart="@dimen/lateral_margin"
+				android:background="@color/divider"
+				android:layout_marginTop="0dp"
+				app:layout_constraintTop_toBottomOf="@+id/detail_description_subtitle"
+				android:layout_marginLeft="16dp"
+				app:layout_constraintLeft_toLeftOf="parent"
+				android:layout_marginRight="16dp"
+				app:layout_constraintRight_toRightOf="parent"/>
+
+			<TextView
+				android:id="@+id/detail_series_subtitle"
+				style="@style/SubtitleText"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/series_subtitle"
+				android:layout_marginStart="8dp"
+				android:layout_marginTop="8dp"
+				app:layout_constraintTop_toBottomOf="@+id/detail_title"
+				android:layout_marginLeft="8dp"
+				app:layout_constraintLeft_toLeftOf="@+id/guideline3"/>
+
+			<TextView
+				android:id="@+id/detail_series_field"
+				style="@style/NormalText"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/lateral_margin"
+				android:layout_marginTop="-1dp"
+				app:layout_constraintTop_toBottomOf="@+id/detail_series_subtitle"
+				android:layout_marginRight="16dp"
+				app:layout_constraintRight_toRightOf="parent"
+				android:layout_marginLeft="8dp"
+				app:layout_constraintLeft_toLeftOf="@+id/guideline3"/>
+
+			<TextView
+				android:id="@+id/detail_pages_subtitle"
+				style="@style/SubtitleText"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="8dp"
+				android:text="@string/page_count_subtitle"
+				android:layout_marginTop="8dp"
+				app:layout_constraintTop_toBottomOf="@+id/detail_series_field"
+				android:layout_marginLeft="8dp"
+				app:layout_constraintLeft_toLeftOf="@+id/guideline3"/>
+
+			<TextView
+				android:id="@+id/detail_pages"
+				style="@style/NormalText"
+				android:layout_width="0dp"
+				android:layout_height="20dp"
+				android:layout_marginEnd="@dimen/lateral_margin"
+				android:layout_marginStart="8dp"
+				android:gravity="top"
+				android:layout_marginTop="0dp"
+				app:layout_constraintTop_toBottomOf="@+id/detail_pages_subtitle"
+				android:layout_marginRight="16dp"
+				app:layout_constraintRight_toRightOf="parent"
+				android:layout_marginLeft="8dp"
+				app:layout_constraintLeft_toLeftOf="@+id/guideline3"/>
+
+		</android.support.constraint.ConstraintLayout>
+	</ScrollView>
+</LinearLayout>

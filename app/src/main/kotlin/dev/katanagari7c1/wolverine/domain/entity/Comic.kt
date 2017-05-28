@@ -5,5 +5,7 @@ data class Comic(
 	val title:String = "",
 	val description:String = "",
 	val thumbnail:String = "",
-	val images:List<String> = listOf()
+	val images:List<String> = listOf(),
+	val numPages:String = "0",
+	val series:String = ""
 )

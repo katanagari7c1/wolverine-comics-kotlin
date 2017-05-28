@@ -8,7 +8,9 @@ data class ComicListResponseDataItem(
 	val title:String,
 	val description:String?,
 	val thumbnail:ComicImage,
-	val images:List<ComicImage>
+	val images:List<ComicImage>,
+	val pageCount:String?,
+	val series:ComicSeries
 ) {
 	fun toComic():Comic {
 		return Comic(
@@ -16,7 +18,9 @@ data class ComicListResponseDataItem(
 			title = this.title,
 			description = this.description ?: "",
 			thumbnail = thumbnail.fullPath(),
-			images = this.images.map { image -> image.fullPath() }
+			images = this.images.map { image -> image.fullPath() },
+			numPages = this.pageCount ?: "0",
+			series = this.series.name
 		)
 	}
 }

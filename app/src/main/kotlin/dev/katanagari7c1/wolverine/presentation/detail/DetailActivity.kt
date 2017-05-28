@@ -79,6 +79,8 @@ class DetailActivity : DialogActivity() {
 				stringToHtmlConverter.convert(comic.description)
 
 		this.showRandomImage(comic, detail_image)
+		this.detail_series_field.text = comic.series
+		this.detail_pages.text = String.format(getString(R.string.page_number_template), comic.numPages)
 	}
 
 	private fun showRandomImage(comic: Comic, detail_image: ImageView) {
