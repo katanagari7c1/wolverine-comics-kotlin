@@ -30,8 +30,9 @@ import org.jetbrains.anko.uiThread
 
 class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 
-	private lateinit var adapter: ComicListAdapter
 	private lateinit var dataLoader: ComicListDataLoader
+
+	private lateinit var adapter: ComicListAdapter
 	private var isRequestingComics = false
 
 	override fun onCreate(savedInstanceState: Bundle?) {
