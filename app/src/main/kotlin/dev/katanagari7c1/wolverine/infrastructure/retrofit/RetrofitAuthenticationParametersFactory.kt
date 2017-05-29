@@ -3,9 +3,10 @@ package dev.katanagari7c1.wolverine.infrastructure.retrofit
 import dev.katanagari7c1.wolverine.BuildConfig
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.util.AuthorizationKeyGenerator
 import java.util.*
+import javax.inject.Inject
 
 
-class RetrofitAuthenticationParametersFactory(val authorizationKeyGenerator: AuthorizationKeyGenerator) {
+class RetrofitAuthenticationParametersFactory @Inject constructor(val authorizationKeyGenerator: AuthorizationKeyGenerator) {
 
 	fun getParameters(): MutableMap<String, String> {
 		val timestamp = "${Date().time / 1000}"

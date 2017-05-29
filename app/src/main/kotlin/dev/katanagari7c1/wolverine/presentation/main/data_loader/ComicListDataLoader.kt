@@ -3,8 +3,7 @@ package dev.katanagari7c1.wolverine.presentation.main.data_loader
 import dev.katanagari7c1.wolverine.domain.entity.Comic
 import dev.katanagari7c1.wolverine.domain.use_case.ComicFindFromOffsetUseCase
 
-
-class ComicListDataLoader(
+class ComicListDataLoader (
 	val loadWithOffsetUseCase: ComicFindFromOffsetUseCase
 ) {
 

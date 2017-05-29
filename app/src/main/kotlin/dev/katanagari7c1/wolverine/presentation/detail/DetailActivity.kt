@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar
 import android.widget.ImageView
 import dev.katanagari7c1.wolverine.R
 import dev.katanagari7c1.wolverine.domain.entity.Comic
+import dev.katanagari7c1.wolverine.domain.repository.ComicRepository
 import dev.katanagari7c1.wolverine.domain.use_case.ComicFindByIdUseCase
 import dev.katanagari7c1.wolverine.domain.util.ImageLoader
 import dev.katanagari7c1.wolverine.infrastructure.glide.GlideImageLoader
@@ -12,6 +13,7 @@ import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitAuthenticatio
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitComicRepository
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitFactory
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.util.AuthorizationKeyGenerator
+import dev.katanagari7c1.wolverine.presentation.application.WolverineApplication
 import dev.katanagari7c1.wolverine.presentation.base.DialogActivity
 import dev.katanagari7c1.wolverine.presentation.helper.StringToHtmlConverter
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -19,6 +21,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
 import java.util.*
+import javax.inject.Inject
 
 class DetailActivity : DialogActivity() {
 
@@ -26,14 +29,19 @@ class DetailActivity : DialogActivity() {
 		const val EXTRA_COMIC_ID = "comic_id"
 	}
 
-	lateinit var imageLoader: ImageLoader
+	@Inject
+	lateinit var repository:ComicRepository
+
+	@Inject
 	lateinit var stringToHtmlConverter: StringToHtmlConverter
+
+	@Inject
+	lateinit var imageLoader: ImageLoader
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_detail)
-
-		this.initializeHelpers()
+		WolverineApplication.getInjectorComponent(this).inject(this)
 
 		val comicId = this.intent.getStringExtra(EXTRA_COMIC_ID)
 
@@ -41,11 +49,6 @@ class DetailActivity : DialogActivity() {
 			.withUpNavigation()
 			.title(getString(R.string.detail_title))
 		this.fetchComicAndRender(comicId)
-	}
-
-	private fun initializeHelpers() {
-		this.imageLoader = GlideImageLoader(this)
-		this.stringToHtmlConverter = StringToHtmlConverter()
 	}
 
 	private fun fetchComicAndRender(comicId:String) {

@@ -14,150 +14,156 @@
 
 	<ScrollView
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		android:scrollbars="vertical">
 
-		<android.support.constraint.ConstraintLayout
+		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			tools:context="dev.katanagari7c1.wolverine.presentation.detail.DetailActivity"
-			tools:layout_editor_absoluteX="0dp"
-			tools:layout_editor_absoluteY="0dp">
+			android:orientation="vertical">
 
-			<TextView
-				android:id="@+id/detail_description"
-				style="@style/NormalText"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/lateral_margin"
-				android:layout_marginLeft="16dp"
-				android:layout_marginRight="16dp"
-				android:layout_marginStart="@dimen/lateral_margin"
-				android:layout_marginTop="0dp"
-				android:lines="6"
-				app:layout_constraintHorizontal_bias="0.0"
-				app:layout_constraintLeft_toLeftOf="parent"
-				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/view"/>
+			<android.support.constraint.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:context="dev.katanagari7c1.wolverine.presentation.detail.DetailActivity"
+				tools:layout_editor_absoluteX="0dp"
+				tools:layout_editor_absoluteY="0dp">
 
-			<ImageView
-				android:id="@+id/detail_image"
-				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:layout_marginBottom="0dp"
-				android:layout_marginEnd="8dp"
-				android:layout_marginLeft="16dp"
-				android:layout_marginRight="8dp"
-				android:layout_marginStart="@dimen/lateral_margin"
-				android:layout_marginTop="16dp"
-				android:scaleType="center"
-				app:layout_constraintBottom_toBottomOf="@+id/detail_pages"
-				app:layout_constraintHorizontal_bias="0.0"
-				app:layout_constraintLeft_toLeftOf="parent"
-				app:layout_constraintRight_toLeftOf="@+id/guideline3"
-				app:layout_constraintTop_toTopOf="parent"
-				app:srcCompat="@color/primary_light"/>
+				<ImageView
+					android:id="@+id/detail_image"
+					android:layout_width="0dp"
+					android:layout_height="0dp"
+					android:layout_marginBottom="0dp"
+					android:layout_marginEnd="8dp"
+					android:layout_marginLeft="16dp"
+					android:layout_marginRight="8dp"
+					android:layout_marginStart="@dimen/lateral_margin"
+					android:layout_marginTop="16dp"
+					android:scaleType="center"
+					app:layout_constraintBottom_toBottomOf="@+id/detail_pages"
+					app:layout_constraintHorizontal_bias="0.0"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toLeftOf="@+id/guideline3"
+					app:layout_constraintTop_toTopOf="parent"
+					app:srcCompat="@color/primary_light"/>
 
-			<android.support.constraint.Guideline
-				android:id="@+id/guideline3"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				app:layout_constraintGuide_percent="0.5"
-				tools:layout_editor_absoluteX="192dp"
-				tools:layout_editor_absoluteY="0dp"/>
+				<android.support.constraint.Guideline
+					android:id="@+id/guideline3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					app:layout_constraintGuide_percent="0.5"
+					tools:layout_editor_absoluteX="192dp"
+					tools:layout_editor_absoluteY="0dp"/>
 
-			<TextView
-				android:id="@+id/detail_title"
-				style="@style/TitleText"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/lateral_margin"
-				android:layout_marginStart="8dp"
-				android:layout_marginTop="16dp"
-				app:layout_constraintHorizontal_bias="0.0"
-				app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toTopOf="parent"/>
+				<TextView
+					android:id="@+id/detail_title"
+					style="@style/TitleText"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="@dimen/lateral_margin"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="16dp"
+					android:ellipsize="end"
+					android:lines="5"
+					app:layout_constraintHorizontal_bias="0.0"
+					app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
+
+
+				<TextView
+					android:id="@+id/detail_series_subtitle"
+					style="@style/SubtitleText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="8dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="8dp"
+					android:text="@string/series_subtitle"
+					app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+					app:layout_constraintTop_toBottomOf="@+id/detail_title"/>
+
+				<TextView
+					android:id="@+id/detail_series_field"
+					style="@style/NormalText"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="@dimen/lateral_margin"
+					android:layout_marginLeft="0dp"
+					android:layout_marginRight="0dp"
+					android:layout_marginTop="0dp"
+					android:ellipsize="end"
+					android:lines="4"
+					app:layout_constraintLeft_toLeftOf="@+id/detail_series_subtitle"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/detail_series_subtitle"/>
+
+				<TextView
+					android:id="@+id/detail_pages_subtitle"
+					style="@style/SubtitleText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="32dp"
+					android:layout_marginLeft="8dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="8dp"
+					android:text="@string/page_count_subtitle"
+					app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+					app:layout_constraintTop_toBottomOf="@+id/detail_series_field"/>
+
+				<TextView
+					android:id="@+id/detail_pages"
+					style="@style/NormalText"
+					android:layout_width="0dp"
+					android:layout_height="20dp"
+					android:layout_marginEnd="@dimen/lateral_margin"
+					android:layout_marginLeft="8dp"
+					android:layout_marginRight="16dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="0dp"
+					android:gravity="top"
+					android:lines="1"
+					app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/detail_pages_subtitle"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintHorizontal_bias="0.0"
+					android:layout_marginBottom="16dp"/>
+
+
+			</android.support.constraint.ConstraintLayout>
 
 			<TextView
 				android:id="@+id/detail_description_subtitle"
 				style="@style/SubtitleText"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginLeft="16dp"
-				android:layout_marginStart="@dimen/lateral_margin"
-				android:layout_marginTop="32dp"
-				android:text="@string/description_title"
-				app:layout_constraintLeft_toLeftOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/detail_image"/>
+				android:layout_marginStart="16dp"
+				android:layout_marginTop="8dp"
+				android:text="@string/description_title"/>
 
 			<View
 				android:id="@+id/view"
-				android:layout_width="0dp"
-				android:layout_height="1dp"
-				android:layout_marginEnd="@dimen/lateral_margin"
-				android:layout_marginLeft="16dp"
-				android:layout_marginRight="16dp"
-				android:layout_marginStart="@dimen/lateral_margin"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/separator_thickness"
+				android:layout_marginEnd="16dp"
+				android:layout_marginStart="16dp"
 				android:layout_marginTop="0dp"
 				android:background="@color/divider"
-				app:layout_constraintLeft_toLeftOf="parent"
-				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/detail_description_subtitle"/>
+				/>
 
 			<TextView
-				android:id="@+id/detail_series_subtitle"
-				style="@style/SubtitleText"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginLeft="8dp"
-				android:layout_marginStart="8dp"
-				android:layout_marginTop="8dp"
-				android:text="@string/series_subtitle"
-				app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-				app:layout_constraintTop_toBottomOf="@+id/detail_title"/>
-
-			<TextView
-				android:id="@+id/detail_series_field"
+				android:id="@+id/detail_description"
 				style="@style/NormalText"
-				android:layout_width="0dp"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginEnd="@dimen/lateral_margin"
-				android:layout_marginLeft="0dp"
-				android:layout_marginRight="0dp"
-				android:layout_marginTop="0dp"
-				app:layout_constraintLeft_toLeftOf="@+id/detail_series_subtitle"
-				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/detail_series_subtitle"/>
-
-			<TextView
-				android:id="@+id/detail_pages_subtitle"
-				style="@style/SubtitleText"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginBottom="32dp"
-				android:layout_marginLeft="8dp"
-				android:layout_marginStart="8dp"
-				android:layout_marginTop="8dp"
-				android:text="@string/page_count_subtitle"
-				app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-				app:layout_constraintTop_toBottomOf="@+id/detail_series_field"/>
-
-			<TextView
-				android:id="@+id/detail_pages"
-				style="@style/NormalText"
-				android:layout_width="0dp"
-				android:layout_height="20dp"
-				android:layout_marginEnd="@dimen/lateral_margin"
-				android:layout_marginLeft="8dp"
+				android:layout_marginBottom="25dp"
+				android:layout_marginLeft="16dp"
 				android:layout_marginRight="16dp"
-				android:layout_marginStart="8dp"
 				android:layout_marginTop="0dp"
-				android:gravity="top"
-				app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/detail_pages_subtitle"/>
+				/>
+		</LinearLayout>
 
-		</android.support.constraint.ConstraintLayout>
 	</ScrollView>
 </LinearLayout>
