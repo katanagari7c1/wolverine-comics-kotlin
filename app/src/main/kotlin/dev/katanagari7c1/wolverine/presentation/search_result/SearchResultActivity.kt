@@ -7,12 +7,15 @@ import android.support.v7.widget.Toolbar
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import dev.katanagari7c1.wolverine.R
+import dev.katanagari7c1.wolverine.domain.repository.ComicRepository
 import dev.katanagari7c1.wolverine.domain.use_case.ComicFindContainingTextInTitleAndOffsetUseCase
+import dev.katanagari7c1.wolverine.domain.util.ImageLoader
 import dev.katanagari7c1.wolverine.infrastructure.glide.GlideImageLoader
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitAuthenticationParametersFactory
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitComicRepository
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitFactory
 import dev.katanagari7c1.wolverine.infrastructure.retrofit.util.AuthorizationKeyGenerator
+import dev.katanagari7c1.wolverine.presentation.application.WolverineApplication
 import dev.katanagari7c1.wolverine.presentation.base.DialogActivity
 import dev.katanagari7c1.wolverine.presentation.main.data_loader.ComicListDataLoader
 import dev.katanagari7c1.wolverine.presentation.main.data_loader.LoadMoreItemsCallback
@@ -22,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_search_result.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
+import javax.inject.Inject
 
 
 class SearchResultActivity : DialogActivity(), LoadMoreItemsCallback {
@@ -30,14 +34,21 @@ class SearchResultActivity : DialogActivity(), LoadMoreItemsCallback {
 		const val EXTRA_SEARCH_QUERY = "search_query"
 	}
 
+	@Inject
+	lateinit var repository:ComicRepository
+
+	@Inject
+	lateinit var imageLoader:ImageLoader
+
 	private lateinit var adapter: ComicListAdapter
 	private lateinit var dataLoader: ComicListDataLoader
 	private var isRequestingComics = false
-	private var firstRequest = true
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_search_result)
+
+		WolverineApplication.getInjectorComponent(this).inject(this)
 
 		val queryString = getQueryFromIntent(this.intent)
 
@@ -63,13 +74,6 @@ class SearchResultActivity : DialogActivity(), LoadMoreItemsCallback {
 	}
 
 	private fun initializeDataLoader(queryString: String): ComicListDataLoader {
-		val repository = RetrofitComicRepository(
-			retrofitFactory = RetrofitFactory(),
-			parametersFactory = RetrofitAuthenticationParametersFactory(
-				authorizationKeyGenerator = AuthorizationKeyGenerator()
-			)
-		)
-
 		return ComicListDataLoader(
 			loadWithOffsetUseCase = ComicFindContainingTextInTitleAndOffsetUseCase(queryString, repository)
 		)
@@ -106,7 +110,7 @@ class SearchResultActivity : DialogActivity(), LoadMoreItemsCallback {
 	private fun initializeList(dataLoader: ComicListDataLoader) {
 		this.adapter = ComicListAdapter(
 			activity = this,
-			imageLoader = GlideImageLoader(this)
+			imageLoader = this.imageLoader
 		)
 		val layoutManager = GridLayoutManager(this, 2)
 		this.search_comic_recycler_view.setHasFixedSize(true)

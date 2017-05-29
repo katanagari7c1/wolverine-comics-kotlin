@@ -10,12 +10,11 @@ import android.view.MenuItem
 import android.widget.Toast
 import dev.katanagari7c1.wolverine.R
 import dev.katanagari7c1.wolverine.domain.error.FetchError
+import dev.katanagari7c1.wolverine.domain.repository.ComicRepository
 import dev.katanagari7c1.wolverine.domain.use_case.ComicFindAllFromOffsetUseCase
+import dev.katanagari7c1.wolverine.domain.util.ImageLoader
 import dev.katanagari7c1.wolverine.infrastructure.glide.GlideImageLoader
-import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitAuthenticationParametersFactory
-import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitComicRepository
-import dev.katanagari7c1.wolverine.infrastructure.retrofit.RetrofitFactory
-import dev.katanagari7c1.wolverine.infrastructure.retrofit.util.AuthorizationKeyGenerator
+import dev.katanagari7c1.wolverine.presentation.application.WolverineApplication
 import dev.katanagari7c1.wolverine.presentation.base.DialogActivity
 import dev.katanagari7c1.wolverine.presentation.main.data_loader.ComicListDataLoader
 import dev.katanagari7c1.wolverine.presentation.main.data_loader.LoadMoreItemsCallback
@@ -26,11 +25,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
+import javax.inject.Inject
 
 
 class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 
-	private lateinit var dataLoader: ComicListDataLoader
+	@Inject
+	lateinit var repository: ComicRepository
+
+	@Inject
+	lateinit var imageLoader: ImageLoader
+
+	lateinit var dataLoader: ComicListDataLoader
 
 	private lateinit var adapter: ComicListAdapter
 	private var isRequestingComics = false
@@ -39,10 +45,12 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
+		WolverineApplication.getInjectorComponent(this).inject(this)
+
 		this.initializeToolbar(find<Toolbar>(R.id.main_toolbar)).title(getString(R.string.app_name))
 
 		this.dataLoader = this.initializeDataLoader()
-		this.initializeList(this.dataLoader)
+		this.initializeList(dataLoader)
 		this.fetchComics()
 	}
 
@@ -81,13 +89,6 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 	}
 
 	private fun initializeDataLoader(): ComicListDataLoader {
-		val repository = RetrofitComicRepository(
-			retrofitFactory = RetrofitFactory(),
-			parametersFactory = RetrofitAuthenticationParametersFactory(
-				authorizationKeyGenerator = AuthorizationKeyGenerator()
-			)
-		)
-
 		return ComicListDataLoader(
 			loadWithOffsetUseCase = ComicFindAllFromOffsetUseCase(repository)
 		)
@@ -133,7 +134,7 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 	private fun initializeList(dataLoader: ComicListDataLoader) {
 		this.adapter = ComicListAdapter(
 			activity = this,
-			imageLoader = GlideImageLoader(this)
+			imageLoader = this.imageLoader
 		)
 
 		val itemsPerRow = resources.getInteger(R.integer.items_per_row)
