@@ -3,8 +3,9 @@ package dev.katanagari7c1.wolverine.infrastructure.retrofit
 import dev.katanagari7c1.wolverine.domain.entity.Comic
 import dev.katanagari7c1.wolverine.domain.error.FetchError
 import dev.katanagari7c1.wolverine.domain.repository.ComicRepository
+import javax.inject.Inject
 
-class RetrofitComicRepository(
+class RetrofitComicRepository @Inject constructor(
 	retrofitFactory: RetrofitFactory,
 	val parametersFactory: RetrofitAuthenticationParametersFactory
 ):ComicRepository {

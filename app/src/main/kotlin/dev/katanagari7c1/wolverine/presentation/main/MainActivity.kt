@@ -10,10 +10,11 @@ import android.view.MenuItem
 import android.widget.Toast
 import dev.katanagari7c1.wolverine.R
 import dev.katanagari7c1.wolverine.domain.error.FetchError
+import dev.katanagari7c1.wolverine.domain.repository.ComicPersistanceRepository
 import dev.katanagari7c1.wolverine.domain.repository.ComicRepository
 import dev.katanagari7c1.wolverine.domain.use_case.ComicFindAllFromOffsetUseCase
+import dev.katanagari7c1.wolverine.domain.use_case.ComicSaveOrUpdateUseCase
 import dev.katanagari7c1.wolverine.domain.util.ImageLoader
-import dev.katanagari7c1.wolverine.infrastructure.glide.GlideImageLoader
 import dev.katanagari7c1.wolverine.presentation.application.WolverineApplication
 import dev.katanagari7c1.wolverine.presentation.base.DialogActivity
 import dev.katanagari7c1.wolverine.presentation.main.data_loader.ComicListDataLoader
@@ -26,12 +27,16 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
 import org.jetbrains.anko.uiThread
 import javax.inject.Inject
+import javax.inject.Named
 
 
 class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 
-	@Inject
+	@field:[Inject Named("network")]
 	lateinit var repository: ComicRepository
+
+	@Inject
+	lateinit var persistanceRepository: ComicPersistanceRepository
 
 	@Inject
 	lateinit var imageLoader: ImageLoader
@@ -90,7 +95,8 @@ class MainActivity : DialogActivity(), LoadMoreItemsCallback {
 
 	private fun initializeDataLoader(): ComicListDataLoader {
 		return ComicListDataLoader(
-			loadWithOffsetUseCase = ComicFindAllFromOffsetUseCase(repository)
+			loadWithOffsetUseCase = ComicFindAllFromOffsetUseCase(repository),
+			saveUseCase = ComicSaveOrUpdateUseCase(persistanceRepository)
 		)
 	}
 

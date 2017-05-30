@@ -7,7 +7,7 @@ import dev.katanagari7c1.wolverine.presentation.search_result.SearchResultActivi
 import javax.inject.Singleton
 
 @Component(modules = arrayOf(
-	RetrofitRepositoryModule::class,
+	RepositoryModule::class,
 	ImageLoaderModule::class,
 	ActivityModule::class
 	)
