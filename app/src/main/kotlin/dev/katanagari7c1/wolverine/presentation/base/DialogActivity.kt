@@ -20,4 +20,9 @@ abstract class DialogActivity: ToolbarActivity() {
 		this.activeDialog = null
 	}
 
+	override fun onDestroy() {
+		super.onDestroy()
+		hideLoading()
+	}
+
 }

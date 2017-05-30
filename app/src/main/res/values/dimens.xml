@@ -12,4 +12,5 @@
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_small">14sp</dimen>
     <dimen name="separator_thickness">1dp</dimen>
+    <dimen name="touch_raise">4dp</dimen>
 </resources>
