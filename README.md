@@ -10,6 +10,8 @@ In addition this was an great opportunity to try some cool things in Android Dev
 * Glide
 * JUnit + Mockito in Kotlin
 * Clean Architecture
+* Dagger 2
+* Realm
 * ...and more to come
  
 To test this app you should get both public and private Marvel API Keys. Once you got them, type them down in a file called `marvelAPI.properties`. There is a template file called `marvelAPI.properties.dist` as a reference.
