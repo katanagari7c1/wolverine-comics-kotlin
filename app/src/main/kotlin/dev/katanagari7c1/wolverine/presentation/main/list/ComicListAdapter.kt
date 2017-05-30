@@ -1,7 +1,6 @@
 package dev.katanagari7c1.wolverine.presentation.main.list
 
 import android.app.Activity
-import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -114,7 +114,8 @@ class SearchResultActivity : DialogActivity(), LoadMoreItemsCallback {
 			activity = this,
 			imageLoader = this.imageLoader
 		)
-		val layoutManager = GridLayoutManager(this, 2)
+		val itemsPerRow = resources.getInteger(R.integer.items_per_row)
+		val layoutManager = GridLayoutManager(this, itemsPerRow)
 		this.search_comic_recycler_view.setHasFixedSize(true)
 		this.search_comic_recycler_view.layoutManager = layoutManager
 		this.search_comic_recycler_view.adapter = this.adapter

@@ -5,7 +5,8 @@ import dev.katanagari7c1.wolverine.domain.use_case.ComicFindFromOffsetUseCase
 import dev.katanagari7c1.wolverine.domain.use_case.ComicSaveOrUpdateUseCase
 
 class ComicListDataLoader (
-	val loadWithOffsetUseCase: ComicFindFromOffsetUseCase, val saveUseCase: ComicSaveOrUpdateUseCase
+	val loadWithOffsetUseCase: ComicFindFromOffsetUseCase,
+	val saveUseCase: ComicSaveOrUpdateUseCase
 ) {
 
 	val numberOfItemsToLoad = 50
